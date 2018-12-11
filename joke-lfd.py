@@ -17,7 +17,7 @@ class LocalFilesSource(IQuoteSource):
             "name": "joke",
             "description": _("jokes from laifudao"),
             "author": "dwSun",
-            "version": "0.1"
+            "version": "0.2"
         }
 
     def supports_search(self):
@@ -34,7 +34,7 @@ class LocalFilesSource(IQuoteSource):
         url = "http://api.laifudao.com/open/xiaohua.json"
 
         response = requests.request("GET", url)
-        self.quotes = [{'quote': self.rm_br(j['content']),
+        self.quotes = [{'quote': j['title'] + '\n' + self.rm_br(j['content']),
                         'author': j['poster'],
                         'link': j['url'],
                         'sourceName': j['title']} for j in response.json()]
